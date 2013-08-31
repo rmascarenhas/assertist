@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: 'Gill Sans', Helvetica, sans-serif;
+  background: #71645b;
+}
+
+.test-group {
+  list-style: none;
+  margin: 30px 0;
+  padding: 10px;
+  background: #584B42;
+}
+
+.test-group h2 {
+  color: #e3b200;
+  font-weight: normal;
+}
+
+.container {
+  padding: 30px 0;
+  max-width: 950px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container h1 {
+  color: #06bfd1;
+  background-color: #28272d;
+  padding: 10px;
+}
+
+.result {
+  font-family: Monaco, Consolas, 'Courier Sans';
+  font-size: 16px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #71645b;
+}
+
+.success {
+  color: #98f48f;
+}
+
+.failure {
+  color: #ff546a;
+}
