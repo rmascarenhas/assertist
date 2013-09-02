@@ -5,18 +5,19 @@
   </head>
 
   <body>
-    <div class='container'>
-      <h1>Your tests results</h1>
-
-      <ul id="assertisc">
-      </ul>
-    </div>
-
     <script src="assertisc.js"></script>
-
     <script>
-      assert(true, 'It works!');
-      assert(false, 'For false values too!');
+      assertisc('cedilla.js', function(test) {
+        test.group('It works', function() {
+          test.assert(1 == 1, 'integer comparison');
+          test.assert(1 == 2, 'this should fail');
+        });
+
+        test.group('It does work', function() {
+          test.assert('foo' == 'fooo', 'This cannot be right');
+          test.assert('foo' == 'foo', 'This one is green');
+        });
+      });
     </script>
   </body>
 </html>
