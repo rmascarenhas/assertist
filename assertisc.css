@@ -9,6 +9,7 @@ body {
   margin: 30px 0;
   padding: 10px;
   background: #584B42;
+  box-shadow: -3px 3px 5px #3f3229;
 }
 
 .test-group h2 {
@@ -25,8 +26,9 @@ body {
 
 .container h1 {
   color: #06bfd1;
-  background-color: #28272d;
   padding: 10px;
+  background: linear-gradient(to right, #28272d, #424147);
+  text-shadow: #00596B -2px 2px;
 }
 
 .result {
