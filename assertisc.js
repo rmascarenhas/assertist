@@ -27,7 +27,7 @@
     //    <div id="assertisc">
     //    </div>
     //  </div>
-    var createBaseHierarchy = function() {
+    function createBaseHierarchy() {
       var container = document.createElement('div'),
           titleEl   = document.createElement('h1'),
           heading   = document.createTextNode(project);
@@ -54,7 +54,7 @@
     //      <ul id="group-1" class="results">
     //      </ul>
     //    </div>
-    var newTestGroup = function(description) {
+    function newTestGroup(description) {
       var groupWrapper   = document.createElement('div'),
           titleText      = document.createTextNode(description),
           groupTitle     = document.createElement('h2'),
@@ -83,13 +83,13 @@
     //    group('bind method', function() {
     //      // tests...
     //    });
-    var testGroup = function(name, tests) {
+    function testGroup(name, tests) {
       newTestGroup(name);
       tests();
     };
 
     // Internal: returns the container element
-    var currentResultContainer = function() {
+    function currentResultContainer() {
       return document.getElementById('group-' + groupCounter);
     };
 
@@ -100,7 +100,7 @@
     // The created structure is as follows:
     //
     //    <li class="result">Description</li>
-    var buildNewResult = function(description) {
+    function buildNewResult(description) {
       var result = document.createElement('li'),
           descriptionEl = document.createTextNode(description);
 
@@ -114,7 +114,7 @@
     //
     // type        - the result of the test (`success` or `failure`).
     // descritpion - the test description.
-    var newResult = function(type, description) {
+    function newResult(type, description) {
       var container = currentResultContainer(),
           result    = buildNewResult(description);
 
@@ -130,7 +130,7 @@
     // Example
     //
     //    assert(1 == 1, 'integer comparison works');
-    var assert = function(expression, description) {
+    function assert(expression, description) {
       if (expression) {
         newResult('success', description);
       } else {
