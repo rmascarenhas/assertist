@@ -40,7 +40,7 @@
       container.appendChild(globalContainer);
 
       document.body.appendChild(container);
-    };
+    }
 
     // Internal: creates the DOM representation for a new test group.
     //
@@ -71,7 +71,7 @@
       groupWrapper.appendChild(resultsWrapper);
 
       globalContainer.appendChild(groupWrapper);
-    };
+    }
 
     // Public: Runs a test group with the given name.
     //
@@ -86,12 +86,12 @@
     function testGroup(name, tests) {
       newTestGroup(name);
       tests();
-    };
+    }
 
     // Internal: returns the container element
     function currentResultContainer() {
       return document.getElementById('group-' + groupCounter);
-    };
+    }
 
     // Internal: builds the DOM structure for the a test result.
     //
@@ -108,7 +108,7 @@
       result.appendChild(descriptionEl);
 
       return result;
-    };
+    }
 
     // Internal: builds a specialized (success or failure) test result.
     //
@@ -120,7 +120,7 @@
 
       result.classList.add(type);
       container.appendChild(result);
-    };
+    }
 
     // Public: Tests the given expression and outputs the result.
     //
@@ -138,14 +138,14 @@
       }
 
       return expression;
-    };
+    }
 
     // The `test` object to be passed to the tests function so that it can have
     // access to `group` and `assert` functions.
     var testObject = {
       group: testGroup,
       assert: assert
-    };
+    }
 
     createBaseHierarchy();
     tests(testObject);
