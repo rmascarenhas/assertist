@@ -23,20 +23,36 @@
     //
     //  <div class="container">
     //    <h1>Title</h1>
+    //    <div class="test-metadata">
+    //      <span class="user-agent"><!-- User agent information --></span>
+    //      <span class="test-timing"><!-- test timing info --></div>
+    //    </div>
     //
     //    <div id="assertisc">
     //    </div>
     //  </div>
     function createBaseHierarchy() {
       var container = document.createElement('div'),
+          metadata  = document.createElement('div'),
+          userAgent = document.createElement('span'),
+          timing    = document.createElement('span'),
+          uaInfo    = document.createTextNode(navigator.userAgent),
           titleEl   = document.createElement('h1'),
           heading   = document.createTextNode(project);
 
       titleEl.appendChild(heading);
+      userAgent.appendChild(uaInfo);
+
+      timing.id = 'test-timing';
 
       container.classList.add('container');
+      metadata.classList.add('test-metadata');
+      userAgent.classList.add('user-agent');
 
+      metadata.appendChild(userAgent);
+      metadata.appendChild(timing);
       container.appendChild(titleEl);
+      container.appendChild(metadata);
       container.appendChild(globalContainer);
 
       document.body.appendChild(container);
@@ -122,6 +138,25 @@
       container.appendChild(result);
     }
 
+    // Internal: calculates the time to run a given function, and updates the timing container.
+    //
+    // work - the function to be measured.
+    //
+    // This will calculate the time to run the `work` parameter and updates the `test-timing`
+    // element with the calculated time, in seconds.
+    function calculating_time(work) {
+      var start = new Date();
+      work();
+      var end = new Date();
+
+      var elapsedTime = (end - start) / 1000;
+
+      var timeEl   = document.getElementById('test-timing'),
+          timeInfo = document.createTextNode('Run in ' + elapsedTime.toFixed(4) + ' seconds');
+
+      timeEl.appendChild(timeInfo);
+    }
+
     // Public: Tests the given expression and outputs the result.
     //
     // expression - the expression that should be tested.
@@ -147,7 +182,9 @@
       assert: assert
     }
 
-    createBaseHierarchy();
-    tests(testObject);
+    calculating_time(function() {
+      createBaseHierarchy();
+      tests(testObject);
+    });
   };
 })();
