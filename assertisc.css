@@ -25,7 +25,7 @@ body {
   border: 5px solid #3f3229;
 }
 
-.user-agent {
+.metadata-row {
   display: block;
   padding-bottom: 10px;
   margin-bottom: 10px;
@@ -54,6 +54,10 @@ body {
 
 .success {
   color: #98f48f;
+}
+
+.success-light-bg {
+  color: #4ca843;
 }
 
 .failure {

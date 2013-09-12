@@ -16,7 +16,9 @@
     // The number of test groups in the test suite. Used mainly to construct unique
     // test group identifiers, making for faster element querying the displaying the
     // results.
-    var groupCounter = 0;
+    var groupCounter = 0,
+        successes    = 0,
+        failures     = 0;
 
     // Internal: creates the base DOM hierarchy in the page in which the test
     // results will be rendered. The structure is as follows:
@@ -25,7 +27,8 @@
     //    <h1>Title</h1>
     //    <div class="test-metadata">
     //      <span class="user-agent"><!-- User agent information --></span>
-    //      <span class="test-timing"><!-- test timing info --></div>
+    //      <span id="test-timing"><!-- test timing info --></span>
+    //      <div id="test-results"><!-- results --></div>
     //    </div>
     //
     //    <div id="assertisc">
@@ -36,6 +39,7 @@
           metadata  = document.createElement('div'),
           userAgent = document.createElement('span'),
           timing    = document.createElement('span'),
+          results   = document.createElement('div'),
           uaInfo    = document.createTextNode(navigator.userAgent),
           titleEl   = document.createElement('h1'),
           heading   = document.createTextNode(project);
@@ -43,14 +47,18 @@
       titleEl.appendChild(heading);
       userAgent.appendChild(uaInfo);
 
-      timing.id = 'test-timing';
+      timing.id  = 'test-timing';
+      results.id = 'test-results';
 
       container.classList.add('container');
       metadata.classList.add('test-metadata');
-      userAgent.classList.add('user-agent');
+
+      userAgent.classList.add('metadata-row');
+      timing.classList.add('metadata-row');
 
       metadata.appendChild(userAgent);
       metadata.appendChild(timing);
+      metadata.appendChild(results);
       container.appendChild(titleEl);
       container.appendChild(metadata);
       container.appendChild(globalContainer);
@@ -109,7 +117,7 @@
       return document.getElementById('group-' + groupCounter);
     }
 
-    // Internal: builds the DOM structure for the a test result.
+    // InternalexecuteTests builds the DOM structure for the a test result.
     //
     // description - the test description.
     //
@@ -144,7 +152,7 @@
     //
     // This will calculate the time to run the `work` parameter and updates the `test-timing`
     // element with the calculated time, in seconds.
-    function calculating_time(work) {
+    function calculatingTime(work) {
       var start = new Date();
       work();
       var end = new Date();
@@ -155,6 +163,37 @@
           timeInfo = document.createTextNode('Run in ' + elapsedTime.toFixed(4) + ' seconds');
 
       timeEl.appendChild(timeInfo);
+    }
+
+    // Internal: adds results information to the `test-results` element.
+    //
+    // The summary has the format:
+    //    20 passed | 3 failed
+    function addTestSummary() {
+      var resultsEl  = document.getElementById('test-results'),
+          passEl     = document.createElement('span'),
+          failureEl  = document.createElement('span'),
+          passInfo   = document.createTextNode(successes + ' passed'),
+          failreInfo = document.createTextNode(failures + ' failed'),
+          separator  = document.createTextNode(' | ');
+
+      passEl.classList.add('success-light-bg');
+      failureEl.classList.add('failure');
+
+      passEl.appendChild(passInfo);
+      failureEl.appendChild(failreInfo);
+
+      resultsEl.appendChild(passEl);
+      resultsEl.appendChild(separator);
+      resultsEl.appendChild(failureEl);
+    }
+
+    // Internal: actually executes the passed `tests`, adding timing and results.
+    //
+    // tests - the function to be executed, which will run the tests.
+    function executeTests(tests) {
+      calculatingTime(tests);
+      addTestSummary();
     }
 
     // Public: Tests the given expression and outputs the result.
@@ -168,8 +207,10 @@
     function assert(expression, description) {
       if (expression) {
         newResult('success', description);
+        successes++;
       } else {
         newResult('failure', description);
+        failures++;
       }
 
       return expression;
@@ -182,9 +223,7 @@
       assert: assert
     }
 
-    calculating_time(function() {
-      createBaseHierarchy();
-      tests(testObject);
-    });
+    createBaseHierarchy();
+    executeTests(function() { tests(testObject); });
   };
 })();
