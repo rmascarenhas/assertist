@@ -170,22 +170,34 @@
     // The summary has the format:
     //    20 passed | 3 failed
     function addTestSummary() {
-      var resultsEl  = document.getElementById('test-results'),
-          passEl     = document.createElement('span'),
-          failureEl  = document.createElement('span'),
-          passInfo   = document.createTextNode(successes + ' passed'),
-          failreInfo = document.createTextNode(failures + ' failed'),
-          separator  = document.createTextNode(' | ');
+      var resultsEl  = document.getElementById('test-results');
 
-      passEl.classList.add('success-light-bg');
-      failureEl.classList.add('failure');
+      if (failures === 0) {
+        var congratsEl   = document.createElement('span'),
+            congratsInfo = document.createTextNode('Everything has passed! Yay!');
 
-      passEl.appendChild(passInfo);
-      failureEl.appendChild(failreInfo);
+        congratsEl.classList.add('success-light-bg');
+        congratsEl.appendChild(congratsInfo);
 
-      resultsEl.appendChild(passEl);
-      resultsEl.appendChild(separator);
-      resultsEl.appendChild(failureEl);
+        resultsEl.appendChild(congratsEl);
+
+      } else {
+        var passEl     = document.createElement('span'),
+            failureEl  = document.createElement('span'),
+            passInfo   = document.createTextNode(successes + ' passed'),
+            failreInfo = document.createTextNode(failures + ' failed'),
+            separator  = document.createTextNode(' | ');
+
+        passEl.classList.add('success-light-bg');
+        failureEl.classList.add('failure');
+
+        passEl.appendChild(passInfo);
+        failureEl.appendChild(failreInfo);
+
+        resultsEl.appendChild(passEl);
+        resultsEl.appendChild(separator);
+        resultsEl.appendChild(failureEl);
+      }
     }
 
     // Internal: actually executes the passed `tests`, adding timing and results.
