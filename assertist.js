@@ -1,4 +1,4 @@
-// assertisc('ampersand.js', function(test) {
+// assertist('ampersand.js', function(test) {
 //    test.group('bind', function() {
 //      var x = 10;
 //
@@ -8,10 +8,10 @@
 // });
 
 (function() {
-  var assertisc = window.assertisc = function(project, tests) {
+  var assertist = window.assertist = function(project, tests) {
     // The container in which the test results will be rendered.
     var globalContainer = document.createElement('div');
-    globalContainer.id = 'assertisc';
+    globalContainer.id = 'assertist';
 
     // The number of test groups in the test suite. Used mainly to construct unique
     // test group identifiers, making for faster element querying the displaying the
@@ -31,7 +31,7 @@
     //      <div id="test-results"><!-- results --></div>
     //    </div>
     //
-    //    <div id="assertisc">
+    //    <div id="assertist">
     //    </div>
     //  </div>
     function createBaseHierarchy() {
