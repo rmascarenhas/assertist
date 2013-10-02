@@ -174,7 +174,7 @@
 
       if (failures === 0) {
         var congratsEl   = document.createElement('span'),
-            congratsInfo = document.createTextNode('Everything has passed! Yay!');
+            congratsInfo = document.createTextNode('Everything has passed! Yay! (' + successes + ' assertions)');
 
         congratsEl.classList.add('success-light-bg');
         congratsEl.appendChild(congratsInfo);
