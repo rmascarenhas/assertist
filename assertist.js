@@ -1,3 +1,5 @@
+// General usage of the assertist library:
+//
 // assertist('ampersand.js', function(test) {
 //    test.group('bind', function() {
 //      var x = 10;
